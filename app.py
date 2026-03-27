@@ -1,4 +1,3 @@
-%%writefile app.py
 import streamlit as st
 import google.generativeai as genai
 
@@ -90,16 +89,18 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 # --- Header ---
 st.markdown("<h1>✨ Text Summariser</h1>", unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Paste any text below and get a crisp summary powered by Gemini.</p>', unsafe_allow_html=True)
+st.markdown(
+    '<p class="subtitle">Paste any text below and get a crisp summary powered by Gemini.</p>',
+    unsafe_allow_html=True
+)
 
-# --- API Key Input ---
+# --- API Key Input (fixed: no hardcoded key) ---
 api_key = st.text_input(
-    "AIzaSyAa9d3byTRJsRV7JAeNq6ep4F5zwuKupUg",
+    "Gemini API Key",
     type="password",
-    placeholder="AIzaSyAa9d3byTRJsRV7JAeNq6ep4F5zwuKupUg",
+    placeholder="Paste your API key here...",
     help="Get your free key at https://aistudio.google.com/app/apikey"
 )
 
@@ -147,9 +148,11 @@ Summary:"""
                 summary = response.text.strip()
 
                 st.markdown("### 📝 Summary")
-                st.markdown(f'<div class="summary-box">{summary}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="summary-box">{summary}</div>',
+                    unsafe_allow_html=True
+                )
 
-                # Copy-friendly expander
                 with st.expander("📋 Copy summary as plain text"):
                     st.code(summary, language=None)
 
